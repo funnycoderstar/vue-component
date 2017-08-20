@@ -36,9 +36,26 @@ export default {
     font-style: normal;
     color: #969696;
 }
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4000;
+}
+* {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
+    .xtr(max-width, 320);
     .xtr(font-size, 15);
+    //  background-color: #efeff4;
 }
+
 </style>

@@ -10,8 +10,8 @@
             <div class="opacityContent" @click="handleCancel"></div>
             <div class="timeContent">
                 <div class="changeTime">{{changeTimeValue.HH}} : {{changeTimeValue.mm}}</div>
-                <div>
-                    
+                <div class="pickerWrap">
+                    <div class="hour" v-for="(item, index) in slots[0].values" :key="index" @click="handleSelect(index)"> {{item}}</div>
                 </div>
                 <!-- <mt-picker :slots="slots" @change="onValuesChange"></mt-picker> -->
                 <div class="timeConfirm">
@@ -64,11 +64,6 @@ export default {
         };
     },
     created() {
-        this.$store.dispatch('getAutoRenew').then((response) => {
-            this.autorenew = !!response.data.auto_renew;
-            this.showRemind = !!response.data.alert_sign_in;
-            this.timeTranse(response.data.alert_sign_in_at);
-        });
         this.slots[0].values = this.createTime();
     },
     components: {
@@ -126,6 +121,9 @@ export default {
         handleCancel() {
             this.isShowTime = false;
         },
+        handleSelect() {
+            // this.isSelect = !this.isSelect;
+        },
         timeTranse(time) {
             const newHH = time.slice(0, 2);
             const newMM = time.slice(3, 5);
@@ -165,7 +163,7 @@ export default {
     .timeContent {
         width: 100%;
         bottom: 0;
-        .xtr(height, 80);
+        .xtr(height, 200);
         position: absolute;
         background-color: @whiteColor;
         .timeConfirm {
@@ -191,5 +189,15 @@ export default {
     .opacityContent {
         height: 100%;
     }
+    .pickerWrap {
+        .xtr(height, 90);
+        overflow: scroll;
+        .hour {
+            .xtr(height, 30);
+            .xtr(line-height, 30);
+            border-bottom: 1px solid #e5e5e5;
+        }
+    }
+
 }
 </style>
