@@ -11,7 +11,21 @@
             <div class="timeContent">
                 <div class="changeTime">{{changeTimeValue.HH}} : {{changeTimeValue.mm}}</div>
                 <div class="pickerWrap">
-                    <div class="hour" v-for="(item, index) in slots[0].values" :key="index" @click="handleSelect(index)"> {{item}}</div>
+                    <div class="left">
+                        <div class="hour" 
+                        v-for="(item, index) in slots[0].values" 
+                        :key="index" @click="handleSelect(index)" 
+                        :style="{color: selectIndexH === index ? 'red' : 'black'}"
+                        >{{item}}</div>
+                    </div>
+                    <!-- <div class="tag">:</div> -->
+                    <div class="right">
+                            <div class="min"
+                            v-for="(item, index) in slots[2].values" 
+                            :key="index" @click="handleSelectM(index)" 
+                            :style="{color: selectIndexM === index ? 'red' : 'black'}"
+                        > {{item}}</div>
+                    </div>
                 </div>
                 <!-- <mt-picker :slots="slots" @change="onValuesChange"></mt-picker> -->
                 <div class="timeConfirm">
@@ -24,9 +38,6 @@
 </template>
 
 <script>
-// import {
-//     Toast,
-// } from 'mint-ui';
 export default {
     data() {
         return {
@@ -41,6 +52,8 @@ export default {
                 HH: '08',
                 mm: '30',
             },
+            selectIndexH: 0,
+            selectIndexM: 0,
             slots: [
                 {
                     flex: 1,
@@ -85,30 +98,16 @@ export default {
             this.changeTimeValue.HH = values[0];
             this.changeTimeValue.mm = values[1];
         },
-        // handleChange(event) {
-        //     const time = `${this.yourTimeValue.HH}:${this.yourTimeValue.mm}:00`;
-        //     this.axios.post(`${window.apiUrl}/api/v1/user/settings`, {
-        //         alert_sign_in: Number(this.showRemind),
-        //         alert_sign_in_at: time,
-        //         auto_renew: Number(this.autorenew),
-        //     }).then((response) => {
-        //         if (response.data.status === 0) {
-        //             Toast('设置成功');
-        //         } else {
-        //             Toast(this.response.data.message);
-        //         };
-        //     });
-        // },
         changeRemind() {
             this.isShowTime = true;
             this.slots[0].values.forEach((i, d) => {
                 if (i === this.yourTimeValue.HH) {
-                    this.slots[0].defaultIndex = d;
+                    this.selectIndexH = d;
                 }
             });
             this.slots[2].values.forEach((i, d) => {
                 if (i === this.yourTimeValue.mm) {
-                    this.slots[2].defaultIndex = d;
+                    this.selectIndexM = d;
                 }
             });
         },
@@ -121,8 +120,13 @@ export default {
         handleCancel() {
             this.isShowTime = false;
         },
-        handleSelect() {
-            // this.isSelect = !this.isSelect;
+        handleSelect(index) {
+            this.selectIndexH = index;
+            this.changeTimeValue.HH = this.slots[0].values[index];
+        },
+        handleSelectM(index) {
+            this.selectIndexM = index;
+            this.changeTimeValue.mm = this.slots[2].values[index];
         },
         timeTranse(time) {
             const newHH = time.slice(0, 2);
@@ -163,14 +167,14 @@ export default {
     .timeContent {
         width: 100%;
         bottom: 0;
-        .xtr(height, 200);
+        .xtr(height, 160);
         position: absolute;
         background-color: @whiteColor;
         .timeConfirm {
             display: flex;
             border-top: 1px solid #e5e5e5;
-            // .xtr(height, 40);
-            // .xtr(line-height, 40);
+            .xtr(height, 40);
+            .xtr(line-height, 40);
             p {
                 width: 50%;
                 text-align: center;
@@ -190,12 +194,24 @@ export default {
         height: 100%;
     }
     .pickerWrap {
-        .xtr(height, 90);
-        overflow: scroll;
-        .hour {
+        display: flex;
+        .left {
+            width:49%;
+            .xtr(height, 90);
+            overflow: scroll;
+        }
+        .hour,.min {
             .xtr(height, 30);
             .xtr(line-height, 30);
+            text-align: center;
             border-bottom: 1px solid #e5e5e5;
+        }
+        .right {
+            width:50%;
+        }
+        .tag {
+            .xtr(height, 30);
+            .xtr(line-height, 30);
         }
     }
 
