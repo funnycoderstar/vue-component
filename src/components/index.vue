@@ -4,7 +4,7 @@
             <li @click="handleCalendar">1,日历组件demo</li>
             <li @click="handleTime">2,时间选择组件demo</li>
             <li @click="handleSelect">3,selectDemo</li>
-            <li @click="handleSelect">4,tabDemo</li>
+            <!-- <li @click="handleSelect">4,tabDemo</li> -->
         </ul>
     </div>
 </template>
