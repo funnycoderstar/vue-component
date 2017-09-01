@@ -63,16 +63,42 @@ export default {
     data() {
         return {
             isShowList: 0,
-            distance: '任意',
-            day: '任意',
-            dayMoney: '任意(元)',
-            composite: '综合',
-            distanceItems: [ '任意', '2KM', '3KM', '5KM', '8KM', '10KM', ],
-            dayItems: [ '任意', '3天', '4天', '5天', '6天', '7天', ],
-            dayMoneyItems: [ '任意(元)', '1~15', '16~50', '51~100', '100以上', ],
-            compositeItems: [ '综合', '人气优先', '奖金优先', '最近开跑', ],
             scrolled: false,
         };
+    },
+    props: {
+        distance: {
+            type: String,
+            default: '任意',
+        },
+        day: {
+            type: String,
+            default: '任意',
+        },
+        dayMoney: {
+            type: String,
+            default: '任意(元)',
+        },
+        composite: {
+            type: String,
+            default: '综合',
+        },
+        distanceItems: {
+            type: Array,
+            default: [ '任意', '2KM', '3KM', '5KM', '8KM', '10KM', ],
+        },
+        dayItems: {
+            type: Array,
+            default: [ '任意', '3天', '4天', '5天', '6天', '7天', ],
+        },
+        dayMoneyItems: {
+            type: Array,
+            default: [ '任意(元)', '1~15', '16~50', '51~100', '100以上', ],
+        },
+        compositeItems: {
+            type: Array,
+            default: [ '综合', '人气优先', '奖金优先', '最近开跑', ],
+        },
     },
     created() {
         window.addEventListener('scroll', this.onScroll);
