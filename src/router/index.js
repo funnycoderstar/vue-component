@@ -5,6 +5,7 @@ import Select from '@/components/select';
 import TimePicker from '@/components/timePicker';
 import Index from '@/components/index';
 import InputDate from '@/components/input-date';
+import InputSelect from '@/components/input-select/index';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
             path: '/inputDate',
             name: 'InputDate',
             component: InputDate,
+        },
+        {
+            path: '/inputSelect',
+            name: 'InputSelect',
+            component: InputSelect,
         },
     ],
 });
